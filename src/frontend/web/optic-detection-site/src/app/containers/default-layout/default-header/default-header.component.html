@@ -1,0 +1,15 @@
+
+  <!-- header section starts  -->
+
+  <header class="header">
+    <a href="#" class="logo"> <i class="fas fa-heartbeat"></i> medcare. </a>
+
+    <nav class="navbar" *ngFor="let menu of navItems">
+        <a [routerLink]="menu?.url">{{menu?.name}}</a>
+    </nav>
+
+    <div id="menu-btn" class="fas fa-bars"></div>
+
+</header>
+
+<!-- header section ends -->

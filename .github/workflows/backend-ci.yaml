@@ -1,0 +1,42 @@
+name: Entraînement du modèle et envoi par e-mail
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  MAIL_USER: roslyn.temateu@gmail.com
+  MAIL_PASSWORD: roslyn.temateu@.2
+  MAIL_TO: temateuroslynf32@gmail.com
+
+jobs:
+  entrainement-et-envoi:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Installer les dépendances python
+      run: pip install -r src/backend/optic-detection-prod/requirements.txt
+    - name: Activez l'environnement virtuel
+      run: |
+        cd src/backend/optic-detection-prod/
+        python3 -m venv venv
+        source venv/bin/activate
+    - name: Entraînez le modèle
+      run: |
+        cd src/backend/optic-detection-prod/src/models
+        python models.py
+    - name: Envoyer le modèle par e-mail
+      uses: dawidd6/action-send-mail@v3.0.0
+      with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: ${{ env.MAIL_USER }}
+        password: ${{ env.MAIL_PASSWORD }}
+        subject: 'Modèle entraîné'
+        body: 'Le modèle entraîné est joint à ce mail'
+        from: ${{ env.MAIL_USER }}
+        to: ${{ env.MAIL_TO }}
+        attachment: ./src/backend/optic-detection-prod/src/models/model.h5
