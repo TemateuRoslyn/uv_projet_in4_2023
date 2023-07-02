@@ -62,7 +62,7 @@ train_datagen = ImageDataGenerator(
 batch_size = 16
 
 train_generator = train_datagen.flow_from_directory(
-    './../dataset',
+    'src/backend/optic-detection-prod/src/dataset',
     target_size=(512, 512),
     batch_size=batch_size,
     subset='training',
@@ -70,7 +70,7 @@ train_generator = train_datagen.flow_from_directory(
 )
 
 validation_generator = train_datagen.flow_from_directory(
-    './../dataset',
+    'src/backend/optic-detection-prod/src/dataset',
     target_size=(512, 512),
     batch_size=batch_size,
     subset='validation',
