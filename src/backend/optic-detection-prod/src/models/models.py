@@ -1,49 +1,45 @@
-import numpy as np
 import tensorflow as tf
-from tensorflow.keras import layers, models, regularizers
+from tensorflow.keras import models, layers, regularizers
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-
 from google.colab import files
 
+
 # Initialisation du modèle ResNet50 pré-entraîné de Keras
-resnet_model = tf.keras.applications.ResNet50(
-    include_top=False,
-    input_shape=[512, 512, 3],
-    weights='imagenet'
-)
+model = models.Sequential()
 
-# Congelation de l'ensemble des couches du modèle pré-entraîné ResNet50
-for layer in resnet_model.layers:
-    layer.trainable = False
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(512, 512, 3)))
+model.add(BatchNormalization())
+model.add(MaxPooling2D((2, 2)))
+model.add(Dropout(0.25))
 
-# Ajout des couches Dense pour la classification à la fin du modèle
-x = layers.Flatten()(resnet_model.output)
-x = layers.Dense(2048, activation='relu')(x)
-x = layers.Dropout(0.5)(x)
-x = layers.BatchNormalization()(x)
+model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(BatchNormalization())
+model.add(MaxPooling2D((2, 2)))
+model.add(Dropout(0.25))
 
-x = layers.Dense(1024, activation='relu', kernel_regularizer=regularizers.l2(0.01))(x)
-x = layers.Dropout(0.5)(x)
-x = layers.BatchNormalization()(x)
+model.add(Conv2D(128, (3, 3), activation='relu'))
+model.add(BatchNormalization())
+model.add(MaxPooling2D((2, 2)))
+model.add(Dropout(0.25))
 
-x = layers.Dense(512, activation='relu', kernel_regularizer=regularizers.l2(0.01))(x)
-x = layers.Dropout(0.5)(x)
-x = layers.BatchNormalization()(x)
+model.add(Conv2D(256, (3, 3), activation='relu'))
+model.add(BatchNormalization())
+model.add(MaxPooling2D((2, 2)))
+model.add(Dropout(0.25))
 
-x = layers.Dense(256, activation='relu')(x)
-x = layers.Dropout(0.5)(x)
-x = layers.BatchNormalization()(x)
+model.add(Flatten())
 
-x = layers.Dense(128, activation='relu')(x)
-x = layers.Dropout(0.5)(x)
-x = layers.BatchNormalization()(x)
+model.add(Dense(256, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
+model.add(BatchNormalization())
+model.add(Dropout(0.5))
 
-output_layer = layers.Dense(5, activation='softmax')(x)
+model.add(Dense(128, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
+model.add(BatchNormalization())
+model.add(Dropout(0.5))
 
-# Création de notre modèle de reconnaissance de forme basée sur le ResNet50 et les couches de classification ajoutées
-model = models.Model(resnet_model.input, output_layer)
+model.add(Dense(5, activation='softmax'))
 
-# Compilation du modèle avec les paramètres nécessaires pour l'entraînement
+# Compilation
 model.compile(
     optimizer=tf.keras.optimizers.SGD(lr=0.01, decay=0.01),
     loss='categorical_crossentropy',
@@ -87,12 +83,8 @@ model.fit(
     verbose=1
 )
 
-model.fit(
-    train_generator,
-    validation_data=validation_generator,
-    epochs=100,
-    verbose=1,
-    steps_per_epoch=train_generator.n
-)
 # Enregistrement des poids du modèle pour une utilisation future dans notre API
 model.save('./model.h5')
+
+# Téléchargement des poids
+files.download('./model.h5')
