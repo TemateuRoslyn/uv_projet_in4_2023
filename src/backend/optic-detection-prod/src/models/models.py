@@ -1,13 +1,10 @@
 import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras import models
 from tensorflow.keras import layers, regularizers
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from google.colab import files
-
+import os
 
 # Initialisation du modèle ResNet50 pré-entraîné de Keras
-model = models.Sequential()
+model = tf.keras.models.Sequential()
 
 model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(512, 512, 3)))
 model.add(layers.BatchNormalization())
@@ -39,7 +36,7 @@ model.add(layers.Dense(128, activation='relu', kernel_regularizer=regularizers.l
 model.add(layers.BatchNormalization())
 model.add(layers.Dropout(0.5))
 
-model.add(layers.Dense(5, activation='softmax'))
+model.add(layers.Dense(3, activation='softmax'))  # Modifier 5 en 3 pour correspondre au nombre de classes
 
 # Compilation
 model.compile(
@@ -61,8 +58,9 @@ train_datagen = ImageDataGenerator(
 
 batch_size = 16
 
+dataset_dir = os.path.abspath(os.path.join(os.getcwd(), '..', 'dataset'))  # Chemin relatif vers le répertoire parent
 train_generator = train_datagen.flow_from_directory(
-    'src/backend/optic-detection-prod/src/dataset',
+    dataset_dir,
     target_size=(512, 512),
     batch_size=batch_size,
     subset='training',
@@ -70,7 +68,7 @@ train_generator = train_datagen.flow_from_directory(
 )
 
 validation_generator = train_datagen.flow_from_directory(
-    'src/backend/optic-detection-prod/src/dataset',
+    dataset_dir,
     target_size=(512, 512),
     batch_size=batch_size,
     subset='validation',
@@ -87,6 +85,3 @@ model.fit(
 
 # Enregistrement des poids du modèle pour une utilisation future dans notre API
 model.save('./model.h5')
-
-# Téléchargement des poids
-files.download('./model.h5')
