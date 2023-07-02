@@ -19,7 +19,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Unzip dataset
-      run: unzip -pq ./src/dataset.zip -d dataset
+      run: unzip -qq ./src/dataset.zip -d dataset
 
     - name: List files in dataset directory
       run: ls -laR ./src/backend/optic-detection-prod/dataset/
