@@ -41,7 +41,7 @@ model.add(layers.Dense(5, activation='softmax'))
 
 # Compilation
 model.compile(
-    optimizer=tf.keras.optimizers.SGD(learning_rate=0.01, decay=0.01),
+    optimizer=tf.keras.optimizers.SGD(lr=0.01, momentum=0.9, nesterov=True),
     loss='categorical_crossentropy',
     metrics=['accuracy']
 )
