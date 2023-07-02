@@ -16,7 +16,7 @@ jobs:
       run: mkdir dataset
 
     - name: Unzip dataset
-      run: unzip -q src/backend/optic-detection-prod/src/dataset.zip -d src/backend/optic-detection-prod/src/dataset
+      run: unzip -q ./src/backend/optic-detection-prod/src/dataset.zip -d ./src/backend/optic-detection-prod/src/dataset
 
     - name: List files in dataset directory
-      run: ls dataset/
+      run: ls ./src/backend/optic-detection-prod/src/dataset
