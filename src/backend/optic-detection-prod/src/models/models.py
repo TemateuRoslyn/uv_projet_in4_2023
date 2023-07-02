@@ -59,7 +59,7 @@ train_datagen = ImageDataGenerator(
 batch_size = 16
 
 # Changer le répertoire de travail
-os.chdir('./')
+os.chdir('/content/uv_projet_in4_2023/src/backend/optic-detection-prod/src/models')
 
 # Obtenir le chemin absolu du répertoire parent
 base_dir = os.path.dirname(os.getcwd())
