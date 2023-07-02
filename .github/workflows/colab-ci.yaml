@@ -25,6 +25,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           sudo apt-get install libblas-dev liblapack-dev
+          pip install numpy
+          pip install pandas
+          pip install google-colab
           pip install -r ./src/backend/optic-detection-prod/src/models/requirements.txt
 
       # Actions pour exécuter le script
