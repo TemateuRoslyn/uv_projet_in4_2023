@@ -58,17 +58,6 @@ train_datagen = ImageDataGenerator(
 
 batch_size = 16
 
-
-# Obtenir le chemin absolu du répertoire parent
-base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Construire le chemin relatif vers le dossier "dataset"
-dataset_dir = os.path.join(base_dir, 'dataset')
-
-
-# Changer le répertoire de travail
-#os.chdir('/content/uv_projet_in4_2023/src/backend/optic-detection-prod/src')
-
 # Changer le répertoire de travail
 os.chdir('./')
 
@@ -77,8 +66,6 @@ base_dir = os.path.dirname(os.getcwd())
 
 # Construire le chemin relatif vers le dossier "dataset"
 dataset_dir = os.path.join(base_dir, 'dataset')
-
-
 
 
 train_generator = train_datagen.flow_from_directory(
