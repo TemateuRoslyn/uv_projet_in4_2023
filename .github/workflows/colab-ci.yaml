@@ -27,7 +27,9 @@ jobs:
 
       # Actions pour exécuter le script
       - name: Run Colab script
-        run: python ./src/backend/optic-detection-prod/src/models/colab_script.py
+        run: |
+          unzip -q ./src/backend/optic-detection-prod/src/dataset.zip
+          python ./src/backend/optic-detection-prod/src/models/models.py
 
       # Actions pour télécharger le fichier model.h5
       - name: Download model.h5
