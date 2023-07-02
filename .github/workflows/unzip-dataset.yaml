@@ -6,14 +6,20 @@ on:
 
 jobs:
   unzip-dataset:
-    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src/backend/optic-detection-prod
+    strategy:
+      matrix:
+        os: [ 'ubuntu-latest' ]
+    runs-on: ${{ matrix.os }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
     - name: Unzip dataset
-      run: unzip -q ./src/backend/optic-detection-prod/src/dataset.zip -d src/backend/optic-detection-prod/src
+      run: unzip -q ./src/dataset.zip -d ./src
 
     - name: List files in dataset directory
-      run: ls dataset/
+      run: ls ./src/dataset
