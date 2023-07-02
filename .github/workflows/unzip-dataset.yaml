@@ -12,11 +12,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Create directory for dataset
-      run: mkdir dataset
-
     - name: Unzip dataset
-      run: unzip -q src/backend/optic-detection-prod/src/dataset.zip -d src/backend/optic-detection-prod/src/dataset
+      run: unzip -q ./src/backend/optic-detection-prod/src/dataset.zip -d src/backend/optic-detection-prod/src
 
     - name: List files in dataset directory
       run: ls dataset/
