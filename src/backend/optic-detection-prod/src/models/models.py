@@ -7,37 +7,37 @@ from google.colab import files
 # Initialisation du modèle ResNet50 pré-entraîné de Keras
 model = models.Sequential()
 
-model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(512, 512, 3)))
-model.add(BatchNormalization())
-model.add(MaxPooling2D((2, 2)))
-model.add(Dropout(0.25))
+model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(512, 512, 3)))
+model.add(layers.BatchNormalization())
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Dropout(0.25))
 
-model.add(Conv2D(64, (3, 3), activation='relu'))
-model.add(BatchNormalization())
-model.add(MaxPooling2D((2, 2)))
-model.add(Dropout(0.25))
+model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model.add(layers.BatchNormalization())
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Dropout(0.25))
 
-model.add(Conv2D(128, (3, 3), activation='relu'))
-model.add(BatchNormalization())
-model.add(MaxPooling2D((2, 2)))
-model.add(Dropout(0.25))
+model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model.add(layers.BatchNormalization())
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Dropout(0.25))
 
-model.add(Conv2D(256, (3, 3), activation='relu'))
-model.add(BatchNormalization())
-model.add(MaxPooling2D((2, 2)))
-model.add(Dropout(0.25))
+model.add(layers.Conv2D(256, (3, 3), activation='relu'))
+model.add(layers.BatchNormalization())
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Dropout(0.25))
 
-model.add(Flatten())
+model.add(layers.Flatten())
 
-model.add(Dense(256, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
-model.add(BatchNormalization())
-model.add(Dropout(0.5))
+model.add(layers.Dense(256, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
+model.add(layers.BatchNormalization())
+model.add(layers.Dropout(0.5))
 
-model.add(Dense(128, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
-model.add(BatchNormalization())
-model.add(Dropout(0.5))
+model.add(layers.Dense(128, activation='relu', kernel_regularizer=regularizers.l2(0.01)))
+model.add(layers.BatchNormalization())
+model.add(layers.Dropout(0.5))
 
-model.add(Dense(5, activation='softmax'))
+model.add(layers.Dense(5, activation='softmax'))
 
 # Compilation
 model.compile(
