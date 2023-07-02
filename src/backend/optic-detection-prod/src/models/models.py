@@ -58,7 +58,14 @@ train_datagen = ImageDataGenerator(
 
 batch_size = 16
 
-dataset_dir = os.path.abspath(os.path.join(os.getcwd(), '..', 'dataset'))  # Chemin relatif vers le répertoire parent
+
+# Obtenir le chemin absolu du fichier actuel (ce script Python)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construire le chemin relatif vers le répertoire "dataset"
+dataset_dir = os.path.join(current_dir, 'dataset')
+
+
 train_generator = train_datagen.flow_from_directory(
     dataset_dir,
     target_size=(512, 512),
