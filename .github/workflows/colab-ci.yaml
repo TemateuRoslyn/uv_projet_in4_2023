@@ -24,7 +24,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install google-colab
-          pip install --upgrade setuptools
 
       # Actions pour exécuter le script
       - name: Run Colab script
