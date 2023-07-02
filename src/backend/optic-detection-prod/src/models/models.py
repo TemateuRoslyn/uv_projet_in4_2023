@@ -1,5 +1,6 @@
 import tensorflow as tf
 from tensorflow.keras import models, layers, regularizers
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dropout, Dense, BatchNormalization
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from google.colab import files
 
