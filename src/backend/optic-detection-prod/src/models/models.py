@@ -1,6 +1,5 @@
 import tensorflow as tf
 from tensorflow.keras import models, layers, regularizers
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dropout, Dense, BatchNormalization
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from google.colab import files
 
@@ -42,7 +41,7 @@ model.add(Dense(5, activation='softmax'))
 
 # Compilation
 model.compile(
-    optimizer=tf.keras.optimizers.SGD(lr=0.01, decay=0.01),
+    optimizer=tf.keras.optimizers.SGD(learning_rate=0.01, decay=0.01),
     loss='categorical_crossentropy',
     metrics=['accuracy']
 )
