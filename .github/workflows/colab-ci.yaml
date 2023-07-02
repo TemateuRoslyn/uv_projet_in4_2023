@@ -1,0 +1,38 @@
+name: Run Colab script
+
+on:
+  push:
+    branches: [ main ]   # changez 'main' par le nom de votre branche principale si nécessaire
+
+jobs:
+  run-colab:
+    name: Run Colab script
+    runs-on: ubuntu-latest
+
+    steps:
+      # Actions pour cloner votre dépôt
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Actions pour installer Python
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'   # changez la version de Python si nécessaire
+
+      # Actions pour installer les dépendances nécessaires
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-colab
+
+      # Actions pour exécuter le script
+      - name: Run Colab script
+        run: python ./src/backend/optic-detection-prod/src/models/colab_script.py
+
+      # Actions pour télécharger le fichier model.h5
+      - name: Download model.h5
+        uses: actions/upload-artifact@v2
+        with:
+          name: model
+          path: ./src/backend/optic-detection-prod/src/models/model.h5   # changez le chemin vers votre fichier model.h5

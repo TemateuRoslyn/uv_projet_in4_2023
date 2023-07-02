@@ -3,6 +3,8 @@ import tensorflow as tf
 from tensorflow.keras import layers, models, regularizers
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
+from google.colab import files
+
 # Initialisation du modèle ResNet50 pré-entraîné de Keras
 resnet_model = tf.keras.applications.ResNet50(
     include_top=False,
